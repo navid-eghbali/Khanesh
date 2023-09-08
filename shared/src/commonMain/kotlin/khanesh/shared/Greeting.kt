@@ -1,4 +1,4 @@
-package navid.khanesh
+package khanesh.shared
 
 class Greeting {
     private val platform: Platform = getPlatform()

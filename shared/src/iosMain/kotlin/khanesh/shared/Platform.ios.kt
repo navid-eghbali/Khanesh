@@ -1,4 +1,4 @@
-package navid.khanesh
+package khanesh.shared
 
 import platform.UIKit.UIDevice
 

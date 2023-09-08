@@ -14,5 +14,11 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Khanesh"
-include(":android-app")
-include(":shared")
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+include(
+    ":android-app",
+    ":core:ui-designsystem",
+    ":shared"
+)
