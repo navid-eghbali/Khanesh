@@ -2,28 +2,27 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "khanesh.core.ui.designsystem"
+    namespace = "khanesh.feature.home"
 
     buildFeatures {
-        buildConfig = true
         compose = true
     }
-
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
     }
 }
 
 dependencies {
+    implementation(projects.core.uiDesignsystem)
     implementation(projects.core.uiResources)
 
-    api(platform(libs.androidx.compose.bom))
-    api(libs.androidx.compose.ui.ui)
-    api(libs.androidx.compose.ui.tooling)
-    api(libs.androidx.compose.ui.tooling.preview)
-    api(libs.androidx.compose.foundation.foundation)
-    api(libs.androidx.compose.material3.material3)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.hilt.library)
+    implementation(libs.hilt.compose)
+    kapt(libs.hilt.compiler)
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">خوانش</string>
+    <string name="explore">جستجو</string>
+    <string name="library">کتابخانه</string>
+</resources>

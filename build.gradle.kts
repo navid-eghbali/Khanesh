@@ -3,6 +3,7 @@ import com.android.build.gradle.BasePlugin
 import dagger.hilt.android.plugin.HiltExtension
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     //trick: for the same plugin versions in all sub-modules
     alias(libs.plugins.android.application) apply false

@@ -2,6 +2,7 @@ package app.khanesh.ui
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import khanesh.feature.home.navigation.HomeRouter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -12,7 +13,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableStateFlow(
         MainUiState(
-            currentDestination = "home"
+            currentDestination = HomeRouter.route
         )
     )
     val state: StateFlow<MainUiState>

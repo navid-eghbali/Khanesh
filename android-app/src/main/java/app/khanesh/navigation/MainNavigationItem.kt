@@ -9,7 +9,8 @@ import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.vector.ImageVector
-import app.khanesh.R
+import khanesh.core.ui.resources.R
+import khanesh.feature.home.navigation.HomeRouter
 
 @Immutable
 data class MainNavigationItem(
@@ -21,7 +22,7 @@ data class MainNavigationItem(
 
 internal fun navigationItems(): List<MainNavigationItem> = listOf(
     MainNavigationItem(
-        route = "home",
+        route = HomeRouter.route,
         textId = R.string.home,
         selectedIcon = Icons.Rounded.Home,
         unselectedIcon = Icons.Outlined.Home,
