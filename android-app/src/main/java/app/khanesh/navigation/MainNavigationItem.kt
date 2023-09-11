@@ -1,42 +1,37 @@
 package app.khanesh.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.List
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.List
-import androidx.compose.material.icons.rounded.Search
+import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Immutable
-import androidx.compose.ui.graphics.vector.ImageVector
 import khanesh.core.ui.resources.R
+import khanesh.feature.explore.navigation.ExploreRouter
 import khanesh.feature.home.navigation.HomeRouter
+import khanesh.feature.library.navigation.LibraryRouter
 
 @Immutable
 data class MainNavigationItem(
     val route: String,
     val textId: Int,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
+    @DrawableRes val selectedIcon: Int,
+    @DrawableRes val unselectedIcon: Int,
 )
 
 internal fun navigationItems(): List<MainNavigationItem> = listOf(
     MainNavigationItem(
         route = HomeRouter.route,
         textId = R.string.home,
-        selectedIcon = Icons.Rounded.Home,
-        unselectedIcon = Icons.Outlined.Home,
+        selectedIcon = R.drawable.ic_filled_home_24,
+        unselectedIcon = R.drawable.ic_outline_home_24,
     ),
     MainNavigationItem(
-        route = "explore",
+        route = ExploreRouter.route,
         textId = R.string.explore,
-        selectedIcon = Icons.Rounded.Search,
-        unselectedIcon = Icons.Outlined.Search,
+        selectedIcon = R.drawable.ic_filled_explore_24,
+        unselectedIcon = R.drawable.ic_outline_explore_24,
     ),
     MainNavigationItem(
-        route = "library",
+        route = LibraryRouter.route,
         textId = R.string.library,
-        selectedIcon = Icons.Rounded.List,
-        unselectedIcon = Icons.Outlined.List,
+        selectedIcon = R.drawable.ic_filled_library_24,
+        unselectedIcon = R.drawable.ic_outline_library_24,
     ),
 )

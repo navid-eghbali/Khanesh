@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -53,10 +54,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme {
                 val state by viewModel.state.collectAsState()
-                MainUi(
-                    state = state,
-                    onNavigationBarItemClicked = viewModel::onNavigationBarItemClicked
-                )
+                MainUi(state = state)
             }
         }
     }
@@ -66,27 +64,28 @@ class MainActivity : ComponentActivity() {
 private fun MainUi(
     state: MainUiState,
     navController: NavHostController = rememberNavController(),
-    onNavigationBarItemClicked: (String) -> Unit,
 ) {
-    // val showBottomBar = navController.currentBackStackEntryAsState().value?.destination?.route in state.mainDestinations.map { it.route }
+    val showBottomBar =
+        navController.currentBackStackEntryAsState().value?.destination?.route in state.mainDestinations.map { it.route }
     Scaffold(
         bottomBar = {
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            MainNavigationBar(
-                navBackStackEntry = navBackStackEntry,
-                navigationItems = state.mainDestinations,
-                onItemSelected = {
-                    navController.navigate(it) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+            if (showBottomBar) {
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                MainNavigationBar(
+                    navBackStackEntry = navBackStackEntry,
+                    navigationItems = state.mainDestinations,
+                    onItemSelected = {
+                        navController.navigate(it) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
                         }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                    onNavigationBarItemClicked(it)
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         },
         containerColor = MaterialTheme.colorScheme.background,
         contentColor = MaterialTheme.colorScheme.onBackground,
@@ -127,7 +126,7 @@ fun MainNavigationBar(
                 onClick = { onItemSelected(item.route) },
                 icon = {
                     Icon(
-                        if (selected) item.selectedIcon else item.unselectedIcon,
+                        painterResource(id = if (selected) item.selectedIcon else item.unselectedIcon),
                         stringResource(id = item.textId),
                         tint = MaterialTheme.colorScheme.primary,
                     )
@@ -149,7 +148,6 @@ fun DefaultPreview() {
     AppTheme {
         MainUi(
             state = MainUiState(),
-            onNavigationBarItemClicked = {},
         )
     }
 }
