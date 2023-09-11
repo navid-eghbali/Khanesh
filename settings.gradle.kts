@@ -19,6 +19,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
     ":android-app",
+    ":core:base",
     ":core:ui-designsystem",
     ":core:ui-resources",
     ":feature:book-details",

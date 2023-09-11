@@ -32,13 +32,18 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.base)
     implementation(projects.core.uiDesignsystem)
     implementation(projects.core.uiResources)
+
     implementation(projects.feature.bookDetails)
     implementation(projects.feature.explore)
     implementation(projects.feature.home)
     implementation(projects.feature.library)
+
     implementation(projects.shared.coreDi)
+    implementation(projects.shared.coreResult)
+    implementation(projects.shared.network)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)

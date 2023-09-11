@@ -50,7 +50,7 @@ kotlin {
         }
         val iosMain by getting {
             dependencies {
-                implementation(libs.ktor.client.ios)
+                implementation(libs.ktor.client.darwin)
             }
         }
     }

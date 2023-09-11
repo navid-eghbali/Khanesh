@@ -6,4 +6,4 @@ import org.kodein.di.instance
 
 val sharedComponent: ConfigurableDI = ConfigurableDI()
 
-inline fun <reified T> sharedComponentInstance(): T = sharedComponent.direct.instance()
+inline fun <reified T : Any> sharedComponentInstance(): T = sharedComponent.direct.instance()

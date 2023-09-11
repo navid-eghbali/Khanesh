@@ -20,6 +20,8 @@ android {
 dependencies {
     implementation(projects.core.uiDesignsystem)
     implementation(projects.core.uiResources)
+    implementation(projects.shared.coreResult)
+    implementation(projects.shared.network)
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.library)

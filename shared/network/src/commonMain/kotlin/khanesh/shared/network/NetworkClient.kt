@@ -26,7 +26,7 @@ class NetworkClient(
     }
 
     private suspend inline fun <reified T> tryMapToResult(
-        httpCall: suspend () -> HttpResponse,
+        httpCall: () -> HttpResponse,
     ): Result<T, Failure> = try {
         val response = httpCall()
         mapToResult(response)
