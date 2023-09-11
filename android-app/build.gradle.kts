@@ -38,7 +38,7 @@ dependencies {
     implementation(projects.feature.explore)
     implementation(projects.feature.home)
     implementation(projects.feature.library)
-    implementation(projects.shared)
+    implementation(projects.shared.coreDi)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)
