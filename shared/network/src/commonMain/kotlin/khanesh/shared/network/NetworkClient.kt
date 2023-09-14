@@ -9,6 +9,7 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.encodedPath
 import io.ktor.http.takeFrom
+import khanesh.shared.core.model.Promotion
 import khanesh.shared.core.result.Failure
 import khanesh.shared.core.result.Result
 
@@ -21,6 +22,15 @@ class NetworkClient(
             url {
                 takeFrom("https://api.vavkhan.com")
                 encodedPath = "/book/genres"
+            }
+        }
+    }
+
+    suspend fun promotions(): Result<List<Promotion>, Failure> = tryMapToResult {
+        client.get {
+            url {
+                takeFrom("https://api.vavkhan.com")
+                encodedPath = "/book/promotions"
             }
         }
     }

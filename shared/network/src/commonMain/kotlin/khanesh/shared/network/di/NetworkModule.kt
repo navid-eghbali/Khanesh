@@ -12,6 +12,7 @@ val networkModule: DI.Module = DI.Module(name = "NetworkModule") {
         val json = Json {
             ignoreUnknownKeys = true
             encodeDefaults = true
+            coerceInputValues = true
         }
         NetworkClient(getPlatformHttpClient(json))
     }

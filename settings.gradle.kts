@@ -27,6 +27,7 @@ include(
     ":feature:home",
     ":feature:library",
     ":shared:core-di",
+    ":shared:core-model",
     ":shared:core-result",
     ":shared:network",
 )

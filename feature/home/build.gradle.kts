@@ -24,6 +24,7 @@ dependencies {
     implementation(projects.shared.network)
 
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.coil)
     implementation(libs.hilt.library)
     implementation(libs.hilt.compose)
     kapt(libs.hilt.compiler)
