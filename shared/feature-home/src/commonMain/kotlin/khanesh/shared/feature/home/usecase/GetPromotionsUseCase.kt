@@ -1,12 +1,11 @@
-package khanesh.feature.home.usecase
+package khanesh.shared.feature.home.usecase
 
 import khanesh.shared.core.model.Promotion
 import khanesh.shared.core.result.Failure
 import khanesh.shared.core.result.Result
 import khanesh.shared.network.NetworkClient
-import javax.inject.Inject
 
-class GetPromotionsUseCase @Inject constructor(
+class GetPromotionsUseCase(
     private val networkClient: NetworkClient,
 ) {
 

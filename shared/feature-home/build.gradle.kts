@@ -1,15 +1,16 @@
+import org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.sqldelight)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
-    android()
+    androidTarget()
     ios()
     iosSimulatorArm64()
 
@@ -18,10 +19,8 @@ kotlin {
             dependencies {
                 implementation(projects.shared.base)
                 implementation(projects.shared.coreDi)
-
-                implementation(libs.sqldelight.coroutines)
-                implementation(libs.sqldelight.paging)
-                implementation(libs.sqldelight.primitive)
+                implementation(projects.shared.network)
+                implementation(projects.shared.storage)
             }
         }
         val commonTest by getting {
@@ -32,10 +31,9 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.hilt.library)
-                implementation(libs.sqldelight.android)
 
                 configurations["kapt"].dependencies.add(
-                    org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency(
+                    DefaultExternalModuleDependency(
                         "com.google.dagger",
                         "hilt-compiler",
                         libs.versions.dagger.get()
@@ -43,22 +41,9 @@ kotlin {
                 )
             }
         }
-        val iosMain by getting {
-            dependencies {
-                implementation(libs.sqldelight.native)
-            }
-        }
-    }
-}
-
-sqldelight {
-    databases {
-        create("Storage") {
-            packageName.set("khanesh.shared.storage")
-        }
     }
 }
 
 android {
-    namespace = "khanesh.shared.storage"
+    namespace = "khanesh.shared.feature.home"
 }

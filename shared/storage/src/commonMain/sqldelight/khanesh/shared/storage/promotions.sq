@@ -1,0 +1,43 @@
+CREATE TABLE IF NOT EXISTS promotions (
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    `promotionTitle` TEXT NOT NULL,
+    `bookId` INTEGER NOT NULL,
+    `title` TEXT NOT NULL,
+    `author` TEXT NOT NULL,
+    `coverImage` TEXT NOT NULL,
+    `averageRate` REAL AS kotlin.Float,
+    `rateCount` INTEGER AS kotlin.Int NOT NULL
+);
+
+insert:
+INSERT INTO promotions (
+    `id`,
+    `promotionTitle`,
+    `bookId`,
+    `title`,
+    `author`,
+    `coverImage`,
+    `averageRate`,
+    `rateCount`
+) VALUES (
+    nullif(:id, 0),
+    :promotionTitle,
+    :bookId,
+    :title,
+    :author,
+    :coverImage,
+    :averageRate,
+    :rateCount
+);
+
+selectAll:
+SELECT * FROM promotions;
+
+select:
+SELECT * FROM promotions WHERE promotionTitle = :promotionTitle;
+
+lastInsertRowId:
+SELECT last_insert_rowid();
+
+deleteAll:
+DELETE FROM promotions;

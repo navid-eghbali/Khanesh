@@ -20,10 +20,11 @@ android {
 dependencies {
     implementation(projects.core.uiDesignsystem)
     implementation(projects.core.uiResources)
-    implementation(projects.shared.coreResult)
+    implementation(projects.shared.featureHome)
     implementation(projects.shared.network)
     implementation(projects.shared.storage)
 
+    implementation(libs.accompanist.placeholder)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.coil)
     implementation(libs.hilt.library)

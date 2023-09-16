@@ -21,13 +21,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -48,6 +49,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.material.placeholder
+import com.google.accompanist.placeholder.material.shimmer
 import khanesh.core.ui.resources.R
 import khanesh.shared.core.model.BookShort
 import khanesh.shared.core.model.Promotion
@@ -73,9 +77,7 @@ fun HomeUi(
         )
         Box(modifier = Modifier.fillMaxSize()) {
             when (state) {
-                is HomeState.Loading ->
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-
+                is HomeState.Loading -> LoadingUi(modifier = Modifier.fillMaxSize())
                 is HomeState.Error -> {}
                 is HomeState.Success -> {
                     LazyColumn(
@@ -99,8 +101,10 @@ fun HomeUi(
 fun HeaderItem(
     title: String,
     modifier: Modifier = Modifier,
+    placeholderModifier: Modifier = Modifier,
 ) {
     Row(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
@@ -110,14 +114,17 @@ fun HeaderItem(
         Icon(
             imageVector = Icons.Filled.ArrowBack,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = placeholderModifier
         )
         Text(
             text = title,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Right,
             style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(placeholderModifier)
         )
     }
 }
@@ -157,6 +164,7 @@ fun CategoriesSlider(
 fun BooksSlider(
     books: List<BookShort>,
     modifier: Modifier = Modifier,
+    placeholderModifier: Modifier = Modifier,
 ) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 8.dp),
@@ -165,7 +173,7 @@ fun BooksSlider(
             .fillMaxWidth()
             .height(240.dp)
     ) {
-        items(books) { BookItem(book = it) }
+        items(books) { BookItem(book = it, placeholderModifier = placeholderModifier) }
     }
 }
 
@@ -173,6 +181,7 @@ fun BooksSlider(
 fun BookItem(
     book: BookShort,
     modifier: Modifier = Modifier,
+    placeholderModifier: Modifier = Modifier,
 ) {
     val width = LocalDensity.current.run { 150.dp.roundToPx() }
     Column(modifier = modifier
@@ -180,6 +189,7 @@ fun BookItem(
         .wrapContentHeight()
         .clickable { }
         .padding(8.dp)
+        .then(placeholderModifier)
     ) {
         Surface(
             shape = MaterialTheme.shapes.medium,
@@ -244,6 +254,33 @@ fun BookItem(
     }
 }
 
+@Composable
+fun LoadingUi(
+    modifier: Modifier = Modifier
+) {
+    val placeholderModifier = Modifier.placeholder(
+        visible = true,
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+        highlight = PlaceholderHighlight.shimmer()
+    )
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(vertical = 8.dp)
+    ) {
+        previewPromotions.forEach { promotion ->
+            HeaderItem(
+                title = "",
+                placeholderModifier = placeholderModifier
+            )
+            BooksSlider(
+                books = promotion.items,
+                placeholderModifier = placeholderModifier
+            )
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewHeaderItem() {
@@ -253,7 +290,7 @@ fun PreviewHeaderItem() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewCategoriesSlider() {
-    CategoriesSlider(categories = CATEGORIES)
+    CategoriesSlider(categories = listOf())
 }
 
 @Preview(showBackground = true)
@@ -267,6 +304,7 @@ fun PreviewBooksSlider() {
 fun PreviewHomeUi() {
     HomeUi(
         state = HomeState.Success(
+            categories = listOf(),
             promotions = previewPromotions
         )
     )
@@ -275,27 +313,27 @@ fun PreviewHomeUi() {
 private val previewBooks: List<BookShort> = listOf(
     BookShort(
         1,
-        "ملت‌هایی بدون ملی‌گرایی",
-        "ژولیا کریستوا",
+        "آسیا در برابر غرب",
+        "داریوش شایگان",
         "بیتا نریمانی",
         "5bd673d82d104a3a804fbb39fe6394f8",
         false,
         null,
-        4.5,
-        4,
+        null,
+        0,
         false,
         "کتاب-صوتی-ملتهایی-بدون-ملیگرایی"
     ),
     BookShort(
         2,
-        "روز آخر مدرسه (از مجموعه مدرسه‌ی پرماجرا)",
-        "دن گاتمن",
+        "شب‌های روشن",
+        "فیودر داستایفسکی",
         "شرگان انورزاده",
         "dc9684a5249e43d88fbb38dae111edc6",
         false,
         null,
-        5.0,
-        4,
+        null,
+        0,
         false,
         "کتاب-صوتی-روز-آخر-مدرسه-از-مجموعه-مدرسهی-پرماجرا"
     ),
@@ -318,5 +356,9 @@ private val previewPromotions: List<Promotion> = listOf(
     Promotion(
         title = "تازه‌ها",
         items = previewBooks
-    )
+    ),
+    Promotion(
+        title = "تازه‌ها",
+        items = previewBooks
+    ),
 )
