@@ -9,7 +9,7 @@ sealed interface HomeState {
     data class Error(val message: String) : HomeState
 
     data class Success(
-        val categories: List<String> = CATEGORIES,
+        val categories: List<String> = CATEGORIES.sorted(),
         val promotions: List<Promotion>,
     ) : HomeState
 }

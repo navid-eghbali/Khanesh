@@ -9,6 +9,8 @@ import khanesh.shared.core.result.Failure
 import khanesh.shared.core.result.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,6 +26,9 @@ class HomeViewModel @Inject constructor(
         get() = _state
 
     init {
+        getGenresUseCase()
+            .onEach { println(it) }
+            .launchIn(viewModelScope)
         viewModelScope.launch {
             when (val result = getPromotionsUseCase()) {
                 is Result.Success -> _state.update { HomeState.Success(promotions = result.data) }

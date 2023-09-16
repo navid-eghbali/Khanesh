@@ -104,8 +104,8 @@ fun HeaderItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 24.dp)
             .clickable { }
+            .padding(16.dp)
     ) {
         Icon(
             imageVector = Icons.Filled.ArrowBack,
@@ -129,13 +129,13 @@ fun CategoriesSlider(
 ) {
     LazyHorizontalStaggeredGrid(
         rows = StaggeredGridCells.Fixed(2),
-        contentPadding = PaddingValues(horizontal = 16.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         reverseLayout = true,
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalItemSpacing = 8.dp,
         modifier = modifier
             .fillMaxWidth()
-            .height(72.dp)
+            .height(88.dp)
     ) {
         items(categories) {
             AssistChip(
@@ -159,9 +159,8 @@ fun BooksSlider(
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
-        contentPadding = PaddingValues(horizontal = 16.dp),
+        contentPadding = PaddingValues(horizontal = 8.dp),
         reverseLayout = true,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .fillMaxWidth()
             .height(240.dp)
@@ -180,6 +179,7 @@ fun BookItem(
         .width(150.dp)
         .wrapContentHeight()
         .clickable { }
+        .padding(8.dp)
     ) {
         Surface(
             shape = MaterialTheme.shapes.medium,

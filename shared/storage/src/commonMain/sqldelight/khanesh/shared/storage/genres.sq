@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `genres`(
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    `title` TEXT NOT NULL
+);
+
+selectAll:
+SELECT * FROM genres ORDER BY title;
+
+deleteAll:
+DELETE FROM genres;
+
+lastInsertRowId:
+SELECT last_insert_rowid();
+
+insert:
+INSERT INTO genres(
+    `id`,
+    `title`
+) VALUES (
+    nullif(:id, 0),
+    :title
+);

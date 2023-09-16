@@ -42,8 +42,10 @@ dependencies {
     implementation(projects.feature.library)
 
     implementation(projects.shared.coreDi)
+    implementation(projects.shared.coreModel)
     implementation(projects.shared.coreResult)
     implementation(projects.shared.network)
+    implementation(projects.shared.storage)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)
@@ -51,4 +53,8 @@ dependencies {
     implementation(libs.hilt.library)
     implementation(libs.hilt.compose)
     kapt(libs.hilt.compiler)
+}
+
+kapt {
+    correctErrorTypes = true
 }

@@ -1,14 +1,11 @@
 package khanesh.feature.home.usecase
 
-import khanesh.shared.core.result.Failure
-import khanesh.shared.core.result.Result
-import khanesh.shared.network.NetworkClient
+import khanesh.shared.storage.daos.GenresDao
 import javax.inject.Inject
 
 class GetGenresUseCase @Inject constructor(
-    private val networkClient: NetworkClient,
+    private val genresDao: GenresDao,
 ) {
 
-    suspend operator fun invoke(): Result<List<String>, Failure> =
-        networkClient.genres()
+    operator fun invoke() = genresDao.getGenres()
 }

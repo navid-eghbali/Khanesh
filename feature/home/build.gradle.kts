@@ -22,6 +22,7 @@ dependencies {
     implementation(projects.core.uiResources)
     implementation(projects.shared.coreResult)
     implementation(projects.shared.network)
+    implementation(projects.shared.storage)
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.coil)

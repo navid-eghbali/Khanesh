@@ -30,4 +30,5 @@ include(
     ":shared:core-model",
     ":shared:core-result",
     ":shared:network",
+    ":shared:storage",
 )
