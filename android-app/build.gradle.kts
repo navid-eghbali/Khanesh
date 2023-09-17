@@ -42,7 +42,6 @@ dependencies {
     implementation(projects.feature.library)
 
     implementation(projects.shared.base)
-    implementation(projects.shared.coreDi)
     implementation(projects.shared.coreModel)
     implementation(projects.shared.coreResult)
     implementation(projects.shared.featureHome)

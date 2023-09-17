@@ -28,6 +28,7 @@ class PromotionsDao(
 
     fun insertAll(promotions: List<Promotions>) {
         storage.transaction {
+            delete()
             promotions.forEach { promotion ->
                 storage.promotionsQueries.insert(
                     id = promotion.id,

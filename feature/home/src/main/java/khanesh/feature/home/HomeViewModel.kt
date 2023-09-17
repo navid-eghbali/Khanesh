@@ -22,6 +22,8 @@ class HomeViewModel @Inject constructor(
         get() = _state
 
     init {
+        viewModelScope.launch { homeRepository.syncGenres() }
+        viewModelScope.launch { homeRepository.syncPromotions() }
         combine(
             homeRepository.observeGenres(),
             homeRepository.observePromotions()
@@ -33,9 +35,5 @@ class HomeViewModel @Inject constructor(
                 )
             }
         }.launchIn(viewModelScope)
-
-        viewModelScope.launch { homeRepository.syncGenres() }
-
-        viewModelScope.launch { homeRepository.syncPromotions() }
     }
 }

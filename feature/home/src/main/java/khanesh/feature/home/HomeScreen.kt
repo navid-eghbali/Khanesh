@@ -25,9 +25,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -84,8 +86,16 @@ fun HomeUi(
                         contentPadding = PaddingValues(vertical = 8.dp),
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        item { HeaderItem(title = stringResource(id = R.string.categories)) }
-                        item { CategoriesSlider(categories = state.categories) }
+                        if (state.categories.isNotEmpty()) {
+                            item {
+                                HeaderItem(
+                                    title = stringResource(id = R.string.categories),
+                                    showArrow = true,
+                                    modifier = Modifier.clickable { }
+                                )
+                            }
+                            item { CategoriesSlider(categories = state.categories) }
+                        }
                         state.promotions.forEach { promotion ->
                             item { HeaderItem(title = promotion.title) }
                             item { BooksSlider(books = promotion.items) }
@@ -102,21 +112,23 @@ fun HeaderItem(
     title: String,
     modifier: Modifier = Modifier,
     placeholderModifier: Modifier = Modifier,
+    showArrow: Boolean = false,
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .clickable { }
             .padding(16.dp)
     ) {
-        Icon(
-            imageVector = Icons.Filled.ArrowBack,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = placeholderModifier
-        )
+        if (showArrow) {
+            Icon(
+                imageVector = Icons.Filled.ArrowBack,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = placeholderModifier
+            )
+        }
         Text(
             text = title,
             fontWeight = FontWeight.Bold,
@@ -144,7 +156,7 @@ fun CategoriesSlider(
             .fillMaxWidth()
             .height(88.dp)
     ) {
-        items(categories) {
+        items(categories, key = { it }) {
             AssistChip(
                 onClick = { },
                 label = { Text(text = it, modifier = Modifier.padding(horizontal = 8.dp)) },
@@ -173,7 +185,12 @@ fun BooksSlider(
             .fillMaxWidth()
             .height(240.dp)
     ) {
-        items(books) { BookItem(book = it, placeholderModifier = placeholderModifier) }
+        items(books, key = { it.id }) {
+            BookItem(
+                book = it,
+                placeholderModifier = placeholderModifier
+            )
+        }
     }
 }
 
@@ -197,7 +214,7 @@ fun BookItem(
             modifier = Modifier.wrapContentSize()
         ) {
             AsyncImage(
-                model = book.coverUrl(book.coverImage, width),
+                model = book.coverUrl(book.coverImage, width, width),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -255,6 +272,29 @@ fun BookItem(
 }
 
 @Composable
+fun RetryItem(
+    onRetry: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Button(
+            onClick = onRetry,
+            modifier = Modifier
+                .width(192.dp)
+                .align(Alignment.Center)
+        ) {
+            Text(text = stringResource(id = R.string.retry))
+            Spacer(modifier = Modifier.width(8.dp))
+            Icon(imageVector = Icons.Filled.Refresh, contentDescription = null)
+        }
+    }
+}
+
+@Composable
 fun LoadingUi(
     modifier: Modifier = Modifier
 ) {
@@ -297,6 +337,12 @@ fun PreviewCategoriesSlider() {
 @Composable
 fun PreviewBooksSlider() {
     BooksSlider(books = previewBooks)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewRetryItem() {
+    RetryItem(onRetry = {})
 }
 
 @Preview(showBackground = true)

@@ -3,8 +3,7 @@ package app.khanesh.initializers
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import khanesh.core.base.initializer.Initializer
-import khanesh.shared.base.di.baseModule
-import khanesh.shared.core.di.sharedComponent
+import khanesh.shared.base.di.sharedComponent
 import khanesh.shared.storage.DriverFactory
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
@@ -18,7 +17,6 @@ class SharedComponentsInitializer @Inject constructor(
     override fun init() {
         sharedComponent.addConfig {
             bindProvider { DriverFactory(context).createDriver() }
-            import(baseModule)
             sharedModules.forEach { import(it) }
         }
     }

@@ -27,7 +27,6 @@ include(
     ":feature:home",
     ":feature:library",
     ":shared:base",
-    ":shared:core-di",
     ":shared:core-model",
     ":shared:core-result",
     ":shared:feature-home",

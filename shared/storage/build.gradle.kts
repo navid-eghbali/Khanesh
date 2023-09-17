@@ -17,7 +17,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.shared.base)
-                implementation(projects.shared.coreDi)
 
                 implementation(libs.sqldelight.coroutines)
                 implementation(libs.sqldelight.paging)

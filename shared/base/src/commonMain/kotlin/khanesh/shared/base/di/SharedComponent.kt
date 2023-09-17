@@ -1,4 +1,4 @@
-package khanesh.shared.core.di
+package khanesh.shared.base.di
 
 import org.kodein.di.conf.ConfigurableDI
 import org.kodein.di.direct

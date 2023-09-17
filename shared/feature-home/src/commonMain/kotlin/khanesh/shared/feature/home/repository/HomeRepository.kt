@@ -22,11 +22,10 @@ class HomeRepository(
     fun observePromotions(): Flow<List<Promotion>> = promotionsDao.getPromotions()
         .map { it.toListPromotion() }
 
-    suspend fun syncPromotions(clearCache: Boolean = false) {
-        if (clearCache) promotionsDao.delete()
+    suspend fun syncPromotions() {
         when (val response = networkClient.promotions()) {
             is Result.Success -> {
-                promotionsDao.delete()
+                // promotionsDao.delete()
                 promotionsDao.insertAll(response.data.toListPromotions())
             }
 

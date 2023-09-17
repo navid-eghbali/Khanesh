@@ -18,7 +18,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.shared.base)
-                implementation(projects.shared.coreDi)
                 implementation(projects.shared.network)
                 implementation(projects.shared.storage)
             }

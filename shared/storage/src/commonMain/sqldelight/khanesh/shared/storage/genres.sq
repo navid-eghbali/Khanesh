@@ -13,7 +13,7 @@ INSERT INTO genres (
 );
 
 selectAll:
-SELECT * FROM genres ORDER BY title;
+SELECT * FROM genres;
 
 lastInsertRowId:
 SELECT last_insert_rowid();

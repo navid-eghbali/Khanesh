@@ -18,6 +18,6 @@ data class BookShort(
     @SerialName("slug") val slug: String,
 ) {
 
-    fun coverUrl(uuid: String, width: Int, type: String = "cover") =
-        "https://www.vavkhan.com/image/$uuid/$width/$type"
+    fun coverUrl(uuid: String, width: Int, height: Int, type: String = "cover") =
+        "https://www.vavkhan.com/image/$uuid/$width/$height/$type"
 }

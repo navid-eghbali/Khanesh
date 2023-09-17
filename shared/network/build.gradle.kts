@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.shared.coreDi)
+                implementation(projects.shared.base)
                 api(projects.shared.coreModel)
                 api(projects.shared.coreResult)
 

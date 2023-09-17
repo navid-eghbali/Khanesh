@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -14,13 +15,27 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(libs.kodein.di)
+                api(libs.kodein.di.conf)
                 api(libs.kotlinx.coroutines.core)
-                implementation(projects.shared.coreDi)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.hilt.library)
+
+                configurations["kapt"].dependencies.add(
+                    org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency(
+                        "com.google.dagger",
+                        "hilt-compiler",
+                        libs.versions.dagger.get()
+                    )
+                )
             }
         }
     }

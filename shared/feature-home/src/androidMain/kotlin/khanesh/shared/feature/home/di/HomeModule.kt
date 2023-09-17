@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
-import khanesh.shared.core.di.sharedComponentInstance
+import khanesh.shared.base.di.sharedComponentInstance
 import khanesh.shared.feature.home.repository.HomeRepository
 import org.kodein.di.DI
 
