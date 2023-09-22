@@ -29,6 +29,8 @@ import khanesh.core.ui.designsystem.AppTheme
 import khanesh.feature.book.details.navigation.BookDetailsRouter.navigateToBookDetails
 import khanesh.feature.book.details.navigation.bookDetailsGraph
 import khanesh.feature.explore.navigation.exploreGraph
+import khanesh.feature.genres.navigation.GenresRouter.navigateToGenres
+import khanesh.feature.genres.navigation.genresGraph
 import khanesh.feature.home.navigation.HomeRouter
 import khanesh.feature.home.navigation.homeGraph
 import khanesh.feature.library.navigation.libraryGraph
@@ -69,12 +71,19 @@ fun MainScreen(
             startDestination = HomeRouter.route,
             modifier = Modifier.padding(padding)
         ) {
-            homeGraph()
+            homeGraph(
+                onAllGenresClicked = { navController.navigateToGenres() },
+                onGenreClicked = {},
+            )
             exploreGraph(
                 onSearchClicked = { navController.navigateToBookDetails(bookId = 1234) }
             )
             libraryGraph()
             bookDetailsGraph()
+            genresGraph(
+                navigateUp = navController::popBackStack,
+                onGenreClicked = { }
+            )
         }
     }
 }

@@ -11,9 +11,9 @@ val homeModule: DI.Module = DI.Module(name = "HomeModule") {
 
     bindSingleton {
         HomeRepository(
-            genresDao = instance(),
             promotionsDao = instance(),
             networkClient = instance(),
+            transactionRunner = instance(),
         )
     }
 

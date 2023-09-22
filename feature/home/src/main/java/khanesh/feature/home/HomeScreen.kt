@@ -25,6 +25,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AssistChip
@@ -60,17 +61,26 @@ import khanesh.shared.core.model.Promotion
 
 @Composable
 fun HomeScreen(
+    onAllGenresClicked: () -> Unit,
+    onGenreClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-    HomeUi(state, modifier)
+    HomeUi(
+        state = state,
+        onAllGenresClicked = onAllGenresClicked,
+        onGenreClicked = onGenreClicked,
+        modifier = modifier
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeUi(
+private fun HomeUi(
     state: HomeState,
+    onAllGenresClicked: () -> Unit,
+    onGenreClicked: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
@@ -86,19 +96,25 @@ fun HomeUi(
                         contentPadding = PaddingValues(vertical = 8.dp),
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        if (state.categories.isNotEmpty()) {
+                        state.promotions.forEach { promotion ->
+                            item { HeaderItem(title = promotion.title) }
+                            item { BooksSlider(books = promotion.items) }
+                        }
+                        if (state.genres.isNotEmpty()) {
                             item {
                                 HeaderItem(
                                     title = stringResource(id = R.string.categories),
                                     showArrow = true,
-                                    modifier = Modifier.clickable { }
+                                    modifier = Modifier.clickable { onAllGenresClicked() }
                                 )
                             }
-                            item { CategoriesSlider(categories = state.categories) }
-                        }
-                        state.promotions.forEach { promotion ->
-                            item { HeaderItem(title = promotion.title) }
-                            item { BooksSlider(books = promotion.items) }
+                            items(state.genres) { GenreItem(genre = it, onGenreClicked = {}) }
+                            /*item {
+                                GenresSlider(
+                                    genres = state.genres,
+                                    onGenreClicked = onGenreClicked,
+                                )
+                            }*/
                         }
                     }
                 }
@@ -115,7 +131,6 @@ fun HeaderItem(
     showArrow: Boolean = false,
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
@@ -128,6 +143,14 @@ fun HeaderItem(
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = placeholderModifier
             )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = stringResource(id = R.string.all),
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.labelLarge
+            )
+            Spacer(modifier = Modifier.width(16.dp))
         }
         Text(
             text = title,
@@ -142,8 +165,46 @@ fun HeaderItem(
 }
 
 @Composable
-fun CategoriesSlider(
-    categories: List<String>,
+fun GenreItem(
+    genre: String,
+    onGenreClicked: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.small,
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        tonalElevation = 4.dp,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(64.dp)
+            .clickable { onGenreClicked(genre) }
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.KeyboardArrowLeft,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = genre,
+                textAlign = TextAlign.Right,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
+@Composable
+fun GenresSlider(
+    genres: List<String>,
+    onGenreClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyHorizontalStaggeredGrid(
@@ -156,9 +217,9 @@ fun CategoriesSlider(
             .fillMaxWidth()
             .height(88.dp)
     ) {
-        items(categories, key = { it }) {
+        items(genres, key = { it }) {
             AssistChip(
-                onClick = { },
+                onClick = { onGenreClicked(it) },
                 label = { Text(text = it, modifier = Modifier.padding(horizontal = 8.dp)) },
                 shape = MaterialTheme.shapes.large,
                 colors = AssistChipDefaults.assistChipColors(
@@ -329,8 +390,11 @@ fun PreviewHeaderItem() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewCategoriesSlider() {
-    CategoriesSlider(categories = listOf())
+fun PreviewGenresSlider() {
+    GenresSlider(
+        genres = listOf(),
+        onGenreClicked = {}
+    )
 }
 
 @Preview(showBackground = true)
@@ -350,9 +414,11 @@ fun PreviewRetryItem() {
 fun PreviewHomeUi() {
     HomeUi(
         state = HomeState.Success(
-            categories = listOf(),
+            genres = listOf(),
             promotions = previewPromotions
-        )
+        ),
+        onAllGenresClicked = {},
+        onGenreClicked = {},
     )
 }
 

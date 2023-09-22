@@ -38,12 +38,14 @@ dependencies {
 
     implementation(projects.feature.bookDetails)
     implementation(projects.feature.explore)
+    implementation(projects.feature.genres)
     implementation(projects.feature.home)
     implementation(projects.feature.library)
 
     implementation(projects.shared.base)
     implementation(projects.shared.coreModel)
     implementation(projects.shared.coreResult)
+    implementation(projects.shared.dataGenres)
     implementation(projects.shared.featureHome)
     implementation(projects.shared.network)
     implementation(projects.shared.storage)
