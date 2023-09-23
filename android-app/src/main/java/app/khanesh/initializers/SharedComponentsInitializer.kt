@@ -8,7 +8,9 @@ import khanesh.shared.storage.DriverFactory
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class SharedComponentsInitializer @Inject constructor(
     @ApplicationContext private val context: Context,
     private val sharedModules: Set<DI.Module>

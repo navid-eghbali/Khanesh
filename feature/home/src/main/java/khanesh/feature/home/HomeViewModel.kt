@@ -54,7 +54,7 @@ class HomeViewModel @Inject constructor(
         ) { genres, promotions ->
             _state.update {
                 HomeState.Success(
-                    genres = genres.map { it.title },
+                    genres = genres.take(5).map { it.title },
                     promotions = promotions,
                 )
             }

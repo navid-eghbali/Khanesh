@@ -18,9 +18,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.staggeredgrid.LazyHorizontalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -28,8 +25,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -108,13 +103,18 @@ private fun HomeUi(
                                     modifier = Modifier.clickable { onAllGenresClicked() }
                                 )
                             }
-                            items(state.genres) { GenreItem(genre = it, onGenreClicked = {}) }
-                            /*item {
-                                GenresSlider(
-                                    genres = state.genres,
-                                    onGenreClicked = onGenreClicked,
+                            items(state.genres) {
+                                GenreItem(
+                                    genre = it,
+                                    onGenreClicked = onGenreClicked
                                 )
-                            }*/
+                            }
+                            item {
+                                GenreItem(
+                                    genre = stringResource(id = R.string.all_genres),
+                                    onGenreClicked = { onAllGenresClicked() }
+                                )
+                            }
                         }
                     }
                 }
@@ -143,13 +143,6 @@ fun HeaderItem(
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = placeholderModifier
             )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = stringResource(id = R.string.all),
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.labelLarge
-            )
             Spacer(modifier = Modifier.width(16.dp))
         }
         Text(
@@ -171,19 +164,19 @@ fun GenreItem(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        shape = MaterialTheme.shapes.small,
+        shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.surfaceVariant,
-        tonalElevation = 4.dp,
         modifier = modifier
             .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp)
             .height(64.dp)
-            .clickable { onGenreClicked(genre) }
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier
                 .fillMaxWidth()
+                .clickable { onGenreClicked(genre) }
                 .padding(16.dp)
         ) {
             Icon(
@@ -196,38 +189,6 @@ fun GenreItem(
                 textAlign = TextAlign.Right,
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.fillMaxWidth()
-            )
-        }
-    }
-}
-
-@Composable
-fun GenresSlider(
-    genres: List<String>,
-    onGenreClicked: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    LazyHorizontalStaggeredGrid(
-        rows = StaggeredGridCells.Fixed(2),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-        reverseLayout = true,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalItemSpacing = 8.dp,
-        modifier = modifier
-            .fillMaxWidth()
-            .height(88.dp)
-    ) {
-        items(genres, key = { it }) {
-            AssistChip(
-                onClick = { onGenreClicked(it) },
-                label = { Text(text = it, modifier = Modifier.padding(horizontal = 8.dp)) },
-                shape = MaterialTheme.shapes.large,
-                colors = AssistChipDefaults.assistChipColors(
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                    labelColor = MaterialTheme.colorScheme.onSecondary,
-                ),
-                border = null,
-                modifier = Modifier.height(32.dp)
             )
         }
     }
@@ -390,9 +351,9 @@ fun PreviewHeaderItem() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewGenresSlider() {
-    GenresSlider(
-        genres = listOf(),
+fun PreviewGenreItem() {
+    GenreItem(
+        genre = "رمان",
         onGenreClicked = {}
     )
 }
