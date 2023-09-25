@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            AppTheme {
+            AppTheme(disableDynamicTheme = true) {
                 val state by viewModel.state.collectAsState()
                 MainScreen(state = state)
             }

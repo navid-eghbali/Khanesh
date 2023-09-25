@@ -1,5 +1,7 @@
 package khanesh.feature.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -70,7 +72,7 @@ fun HomeScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 private fun HomeUi(
     state: HomeState,
@@ -88,15 +90,15 @@ private fun HomeUi(
                 is HomeState.Error -> {}
                 is HomeState.Success -> {
                     LazyColumn(
-                        contentPadding = PaddingValues(vertical = 8.dp),
+                        contentPadding = PaddingValues(top = 8.dp, bottom = 88.dp),
                         modifier = Modifier.fillMaxSize()
                     ) {
                         state.promotions.forEach { promotion ->
-                            item { HeaderItem(title = promotion.title) }
+                            stickyHeader { HeaderItem(title = promotion.title) }
                             item { BooksSlider(books = promotion.items) }
                         }
                         if (state.genres.isNotEmpty()) {
-                            item {
+                            stickyHeader {
                                 HeaderItem(
                                     title = stringResource(id = R.string.categories),
                                     showArrow = true,
@@ -134,6 +136,7 @@ fun HeaderItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp)
     ) {
         if (showArrow) {

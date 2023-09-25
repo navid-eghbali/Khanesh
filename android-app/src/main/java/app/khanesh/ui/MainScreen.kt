@@ -26,7 +26,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import app.khanesh.navigation.MainNavigationItem
 import khanesh.core.ui.designsystem.AppTheme
-import khanesh.feature.book.details.navigation.BookDetailsRouter.navigateToBookDetails
 import khanesh.feature.book.details.navigation.bookDetailsGraph
 import khanesh.feature.explore.navigation.exploreGraph
 import khanesh.feature.genres.navigation.GenresRouter.navigateToGenres
@@ -34,6 +33,8 @@ import khanesh.feature.genres.navigation.genresGraph
 import khanesh.feature.home.navigation.HomeRouter
 import khanesh.feature.home.navigation.homeGraph
 import khanesh.feature.library.navigation.libraryGraph
+import khanesh.feature.search.navigation.SearchRouter.navigateToSearch
+import khanesh.feature.search.navigation.searchGraph
 
 @Composable
 fun MainScreen(
@@ -76,14 +77,16 @@ fun MainScreen(
                 onGenreClicked = {},
             )
             exploreGraph(
-                onSearchClicked = { navController.navigateToBookDetails(bookId = 1234) }
+                onSearchClicked = { navController.navigateToSearch() },
+                onGenreClicked = {},
             )
             libraryGraph()
             bookDetailsGraph()
             genresGraph(
                 navigateUp = navController::popBackStack,
-                onGenreClicked = { }
+                onGenreClicked = {},
             )
+            searchGraph()
         }
     }
 }

@@ -41,6 +41,7 @@ dependencies {
     implementation(projects.feature.genres)
     implementation(projects.feature.home)
     implementation(projects.feature.library)
+    implementation(projects.feature.search)
 
     implementation(projects.shared.base)
     implementation(projects.shared.coreModel)

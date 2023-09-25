@@ -6,12 +6,16 @@ import khanesh.feature.explore.ExploreScreen
 
 fun NavGraphBuilder.exploreGraph(
     onSearchClicked: () -> Unit,
+    onGenreClicked: (String) -> Unit,
 ) {
     composable(
         route = ExploreRouter.route,
         arguments = ExploreRouter.arguments,
         deepLinks = ExploreRouter.deepLinks,
     ) {
-        ExploreScreen(onSearchClicked)
+        ExploreScreen(
+            onSearchClicked = onSearchClicked,
+            onGenreClicked = onGenreClicked,
+        )
     }
 }

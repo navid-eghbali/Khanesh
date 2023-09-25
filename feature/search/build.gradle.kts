@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "khanesh.feature.explore"
+    namespace = "khanesh.feature.search"
 
     buildFeatures {
         compose = true
@@ -20,8 +20,6 @@ android {
 dependencies {
     implementation(projects.core.uiDesignsystem)
     implementation(projects.core.uiResources)
-    implementation(projects.shared.dataGenres)
-    implementation(projects.shared.storage)
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.library)

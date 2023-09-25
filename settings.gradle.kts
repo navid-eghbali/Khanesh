@@ -27,6 +27,7 @@ include(
     ":feature:genres",
     ":feature:home",
     ":feature:library",
+    ":feature:search",
     ":shared:base",
     ":shared:core-model",
     ":shared:core-result",
