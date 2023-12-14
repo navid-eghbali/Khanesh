@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)
 
+    implementation(libs.coil)
+
     implementation(libs.hilt.library)
     implementation(libs.hilt.compose)
     kapt(libs.hilt.compiler)

@@ -31,6 +31,7 @@ include(
     ":shared:base",
     ":shared:core-model",
     ":shared:core-result",
+    ":shared:data-books",
     ":shared:data-genres",
     ":shared:feature-home",
     ":shared:network",

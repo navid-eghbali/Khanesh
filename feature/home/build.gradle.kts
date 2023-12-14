@@ -27,8 +27,10 @@ dependencies {
 
     implementation(libs.accompanist.placeholder)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.coil)
+    implementation(libs.coil.compose)
     implementation(libs.hilt.library)
     implementation(libs.hilt.compose)
+    implementation(libs.kotlinx.collections.immutable)
+
     kapt(libs.hilt.compiler)
 }

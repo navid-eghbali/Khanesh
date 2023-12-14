@@ -39,7 +39,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -53,8 +52,15 @@ import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.material.placeholder
 import com.google.accompanist.placeholder.material.shimmer
 import khanesh.core.ui.resources.R
+import khanesh.feature.home.data.HomeBookShort
+import khanesh.feature.home.data.toHomeBookShorts
+import khanesh.feature.home.data.toHomePromotions
 import khanesh.shared.core.model.BookShort
 import khanesh.shared.core.model.Promotion
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
+private val BOOK_ITEM_WIDTH = 150.dp
 
 @Composable
 fun HomeScreen(
@@ -199,10 +205,11 @@ fun GenreItem(
 
 @Composable
 fun BooksSlider(
-    books: List<BookShort>,
+    books: ImmutableList<HomeBookShort>,
     modifier: Modifier = Modifier,
     placeholderModifier: Modifier = Modifier,
 ) {
+    val width = LocalDensity.current.run { BOOK_ITEM_WIDTH.roundToPx() }
     LazyRow(
         contentPadding = PaddingValues(horizontal = 8.dp),
         reverseLayout = true,
@@ -213,6 +220,7 @@ fun BooksSlider(
         items(books, key = { it.id }) {
             BookItem(
                 book = it,
+                width = width,
                 placeholderModifier = placeholderModifier
             )
         }
@@ -221,13 +229,13 @@ fun BooksSlider(
 
 @Composable
 fun BookItem(
-    book: BookShort,
+    book: HomeBookShort,
+    width: Int,
     modifier: Modifier = Modifier,
     placeholderModifier: Modifier = Modifier,
 ) {
-    val width = LocalDensity.current.run { 150.dp.roundToPx() }
     Column(modifier = modifier
-        .width(150.dp)
+        .width(BOOK_ITEM_WIDTH)
         .wrapContentHeight()
         .clickable { }
         .padding(8.dp)
@@ -242,9 +250,7 @@ fun BookItem(
                 model = book.coverUrl(book.coverImage, width, width),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(150.dp)
-                    .clip(MaterialTheme.shapes.medium),
+                modifier = Modifier.size(BOOK_ITEM_WIDTH),
             )
         }
         Text(
@@ -339,7 +345,7 @@ fun LoadingUi(
                 placeholderModifier = placeholderModifier
             )
             BooksSlider(
-                books = promotion.items,
+                books = promotion.items.toHomeBookShorts(),
                 placeholderModifier = placeholderModifier
             )
         }
@@ -364,7 +370,7 @@ fun PreviewGenreItem() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewBooksSlider() {
-    BooksSlider(books = previewBooks)
+    BooksSlider(books = previewBooks.toHomeBookShorts())
 }
 
 @Preview(showBackground = true)
@@ -378,8 +384,8 @@ fun PreviewRetryItem() {
 fun PreviewHomeUi() {
     HomeUi(
         state = HomeState.Success(
-            genres = listOf(),
-            promotions = previewPromotions
+            genres = persistentListOf(),
+            promotions = previewPromotions.toHomePromotions(),
         ),
         onAllGenresClicked = {},
         onGenreClicked = {},

@@ -16,8 +16,4 @@ data class BookShort(
     @SerialName("rate_count") val rateCount: Int,
     @SerialName("has_donation") val hasDonation: Boolean,
     @SerialName("slug") val slug: String,
-) {
-
-    fun coverUrl(uuid: String, width: Int, height: Int, type: String = "cover") =
-        "https://www.vavkhan.com/image/$uuid/$width/$height/$type"
-}
+)

@@ -1,5 +1,6 @@
 package app.khanesh.di
 
+import app.khanesh.initializers.CoilInitializer
 import app.khanesh.initializers.SharedComponentsInitializer
 import dagger.Binds
 import dagger.Module
@@ -15,4 +16,8 @@ abstract class InitializerModule {
     @Binds
     @IntoSet
     abstract fun bindSharedComponentsInitializer(impl: SharedComponentsInitializer): Initializer
+
+    @Binds
+    @IntoSet
+    abstract fun bindCoilInitializer(impl: CoilInitializer): Initializer
 }

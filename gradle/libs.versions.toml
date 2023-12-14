@@ -1,18 +1,20 @@
 [versions]
 agp = "8.1.1"
 accompanist = "0.32.0"
-androidx-activity-compose = "1.8.0-rc01"
-androidx-compose-bom = "2023.09.01"
-androidx-compose-compiler = "1.5.2"
-androidx-lifecycle = "2.7.0-alpha02"
-androidx-navigation-compose = "2.7.3"
+androidx-activity-compose = "1.8.1"
+androidx-compose-bom = "2023.10.01"
+androidx-compose-compiler = "1.5.3"
+androidx-lifecycle = "2.7.0-rc01"
+androidx-navigation-compose = "2.7.5"
 androidx-startup = "1.1.1"
+coil = "2.4.0"
 coroutines = "1.7.3"
-dagger = "2.48"
+dagger = "2.48.1"
 kodein = "7.20.2"
-kotlin = "1.9.0"
-ktor = "2.3.4"
-paging-multiplatform = "3.2.0-alpha05-0.2.3"
+kotlin = "1.9.10"
+ktor = "2.3.6"
+material3 = "1.2.0-alpha12"
+paging-multiplatform = "3.3.0-alpha02-0.4.0"
 sqldelight = "2.0.0"
 compile-sdk = "34"
 min-sdk = "24"
@@ -33,7 +35,7 @@ sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activity-compose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
 androidx-compose-foundation-foundation = { group = "androidx.compose.foundation", name = "foundation" }
-androidx-compose-material3-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-ui-ui = { group = "androidx.compose.ui", name = "ui" }
@@ -44,18 +46,20 @@ androidx-startup = { group = "androidx.startup", name = "startup-runtime", versi
 
 accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "accompanist" }
 
-coil = "io.coil-kt:coil-compose:2.4.0"
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
 hilt-library = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
-hilt-compose = "androidx.hilt:hilt-navigation-compose:1.0.0"
+hilt-compose = "androidx.hilt:hilt-navigation-compose:1.1.0"
 
 kodein-di = { module = "org.kodein.di:kodein-di", version.ref = "kodein" }
 kodein-di-conf = { module = "org.kodein.di:kodein-di-conf", version.ref = "kodein" }
 
+kotlinx-collections-immutable = "org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.6"
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.1"
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-core-jvm = { module = "io.ktor:ktor-client-core-jvm", version.ref = "ktor" }

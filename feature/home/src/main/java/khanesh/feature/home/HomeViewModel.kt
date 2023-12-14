@@ -3,10 +3,12 @@ package khanesh.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import khanesh.feature.home.data.toHomePromotions
 import khanesh.shared.core.result.Failure
 import khanesh.shared.core.result.Result
 import khanesh.shared.data.genres.GenresRepository
 import khanesh.shared.feature.home.repository.HomeRepository
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -54,8 +56,8 @@ class HomeViewModel @Inject constructor(
         ) { genres, promotions ->
             _state.update {
                 HomeState.Success(
-                    genres = genres.take(5).map { it.title },
-                    promotions = promotions,
+                    genres = genres.take(5).map { it.title }.toPersistentList(),
+                    promotions = promotions.toHomePromotions(),
                 )
             }
         }.launchIn(viewModelScope)

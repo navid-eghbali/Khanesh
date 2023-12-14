@@ -1,5 +1,8 @@
 package app.khanesh.ui
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -70,6 +73,8 @@ fun MainScreen(
         NavHost(
             navController = navController,
             startDestination = HomeRouter.route,
+            enterTransition = { fadeIn(tween(250)) },
+            exitTransition = { fadeOut(tween(250)) },
             modifier = Modifier.padding(padding)
         ) {
             homeGraph(

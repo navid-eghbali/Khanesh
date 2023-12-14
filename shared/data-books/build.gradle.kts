@@ -19,7 +19,6 @@ kotlin {
             dependencies {
                 implementation(projects.shared.base)
                 implementation(projects.shared.network)
-                implementation(projects.shared.storage)
 
                 implementation(libs.paging.common)
             }
@@ -46,5 +45,5 @@ kotlin {
 }
 
 android {
-    namespace = "khanesh.shared.data.genres"
+    namespace = "khanesh.shared.data.books"
 }
