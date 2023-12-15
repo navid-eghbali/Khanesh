@@ -32,7 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import khanesh.core.ui.resources.R
 
 @Composable
-fun SearchScreen(
+internal fun SearchScreen(
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel(),
 ) {
@@ -47,7 +47,7 @@ fun SearchScreen(
 }
 
 @Composable
-fun SearchUi(
+private fun SearchUi(
     state: SearchState,
     onSearch: () -> Unit,
     onQueryChanged: (String) -> Unit,
@@ -95,7 +95,7 @@ fun SearchUi(
 }
 
 @Composable
-fun RecentSearchesUi(
+private fun RecentSearchesUi(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn {
@@ -105,13 +105,13 @@ fun RecentSearchesUi(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewRecentSearchesUi() {
+private fun PreviewRecentSearchesUi() {
     RecentSearchesUi()
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewSearchUi() {
+private fun PreviewSearchUi() {
     SearchUi(
         state = SearchState(),
         onSearch = {},

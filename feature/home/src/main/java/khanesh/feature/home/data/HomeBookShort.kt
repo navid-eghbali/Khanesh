@@ -6,7 +6,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 
 @Immutable
-data class HomeBookShort(
+internal data class HomeBookShort(
     val id: Long,
     val title: String,
     val compiler: String,
@@ -24,7 +24,7 @@ data class HomeBookShort(
         "https://www.vavkhan.com/image/$uuid/$width/$height/$type"
 }
 
-fun List<BookShort>.toHomeBookShorts(): ImmutableList<HomeBookShort> = map {
+internal fun List<BookShort>.toHomeBookShorts(): ImmutableList<HomeBookShort> = map {
     HomeBookShort(
         it.id,
         it.title,

@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun BookDetailsScreen(
+internal fun BookDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: BookDetailsViewModel = hiltViewModel(),
 ) {

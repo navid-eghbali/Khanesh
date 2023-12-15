@@ -37,6 +37,7 @@ dependencies {
     implementation(projects.core.uiResources)
 
     implementation(projects.feature.bookDetails)
+    implementation(projects.feature.books)
     implementation(projects.feature.explore)
     implementation(projects.feature.genres)
     implementation(projects.feature.home)

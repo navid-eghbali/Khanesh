@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "khanesh.feature.genres"
+    namespace = "khanesh.feature.books"
 
     buildFeatures {
         compose = true
@@ -20,16 +20,15 @@ android {
 dependencies {
     implementation(projects.core.uiDesignsystem)
     implementation(projects.core.uiResources)
-    implementation(projects.shared.dataGenres)
+    implementation(projects.shared.dataBooks)
     implementation(projects.shared.network)
-    implementation(projects.shared.storage)
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.coil.compose)
+    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.paging.common)
     implementation(libs.paging.compose)
     implementation(libs.hilt.library)
     implementation(libs.hilt.compose)
-    implementation(libs.kotlinx.collections.immutable)
     kapt(libs.hilt.compiler)
 }

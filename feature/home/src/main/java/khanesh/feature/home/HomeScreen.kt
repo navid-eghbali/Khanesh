@@ -63,7 +63,7 @@ import kotlinx.collections.immutable.persistentListOf
 private val BOOK_ITEM_WIDTH = 150.dp
 
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     onAllGenresClicked: () -> Unit,
     onGenreClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -132,7 +132,7 @@ private fun HomeUi(
 }
 
 @Composable
-fun HeaderItem(
+private fun HeaderItem(
     title: String,
     modifier: Modifier = Modifier,
     placeholderModifier: Modifier = Modifier,
@@ -167,7 +167,7 @@ fun HeaderItem(
 }
 
 @Composable
-fun GenreItem(
+private fun GenreItem(
     genre: String,
     onGenreClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -204,7 +204,7 @@ fun GenreItem(
 }
 
 @Composable
-fun BooksSlider(
+private fun BooksSlider(
     books: ImmutableList<HomeBookShort>,
     modifier: Modifier = Modifier,
     placeholderModifier: Modifier = Modifier,
@@ -228,7 +228,7 @@ fun BooksSlider(
 }
 
 @Composable
-fun BookItem(
+private fun BookItem(
     book: HomeBookShort,
     width: Int,
     modifier: Modifier = Modifier,
@@ -303,7 +303,7 @@ fun BookItem(
 }
 
 @Composable
-fun RetryItem(
+private fun RetryItem(
     onRetry: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -326,7 +326,7 @@ fun RetryItem(
 }
 
 @Composable
-fun LoadingUi(
+private fun LoadingUi(
     modifier: Modifier = Modifier
 ) {
     val placeholderModifier = Modifier.placeholder(
@@ -354,13 +354,13 @@ fun LoadingUi(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewHeaderItem() {
+private fun PreviewHeaderItem() {
     HeaderItem(title = "تازه‌ها")
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewGenreItem() {
+private fun PreviewGenreItem() {
     GenreItem(
         genre = "رمان",
         onGenreClicked = {}
@@ -369,19 +369,19 @@ fun PreviewGenreItem() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewBooksSlider() {
+private fun PreviewBooksSlider() {
     BooksSlider(books = previewBooks.toHomeBookShorts())
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewRetryItem() {
+private fun PreviewRetryItem() {
     RetryItem(onRetry = {})
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewHomeUi() {
+private fun PreviewHomeUi() {
     HomeUi(
         state = HomeState.Success(
             genres = persistentListOf(),

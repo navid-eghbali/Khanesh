@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class BookDetailsViewModel @Inject constructor(
+internal class BookDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 

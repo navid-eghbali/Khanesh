@@ -1,4 +1,4 @@
-package khanesh.feature.book.details.navigation
+package khanesh.feature.books.navigation
 
 import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
@@ -9,27 +9,28 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 
-internal data class BookDetailsArgs(
-    val bookId: Long
+internal data class BooksArgs(
+    val genre: String,
 ) {
+
     constructor(arguments: Bundle) : this(
-        bookId = arguments.getLong("bookId"),
+        genre = arguments.getString("genre", ""),
     )
 
     constructor(savedStateHandle: SavedStateHandle) : this(
-        bookId = checkNotNull(savedStateHandle["bookId"]),
+        genre = checkNotNull(savedStateHandle["genre"]),
     )
 }
 
-object BookDetailsRouter {
+object BooksRouter {
 
-    private const val PATH = "book-details"
+    private const val PATH = "books"
 
-    const val route = "$PATH/{bookId}"
+    const val route = "$PATH/{genre}"
 
     val arguments: List<NamedNavArgument> = listOf(
-        navArgument("bookId") {
-            type = NavType.LongType
+        navArgument("genre") {
+            type = NavType.StringType
         }
     )
 
@@ -37,8 +38,8 @@ object BookDetailsRouter {
         navDeepLink { uriPattern = "khanesh://$route" }
     )
 
-    fun NavController.navigateToBookDetails(bookId: Long) {
-        navigate("$PATH/$bookId") {
+    fun NavController.navigateToBooks(genre: String) {
+        navigate("$PATH/$genre") {
             launchSingleTop = true
         }
     }

@@ -11,7 +11,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import khanesh.core.ui.resources.R
 
 @Composable
-fun LibraryScreen(
+internal fun LibraryScreen(
     modifier: Modifier = Modifier,
     viewModel: LibraryViewModel = hiltViewModel(),
 ) {

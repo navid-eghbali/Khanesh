@@ -23,6 +23,7 @@ include(
     ":core:ui-designsystem",
     ":core:ui-resources",
     ":feature:book-details",
+    ":feature:books",
     ":feature:explore",
     ":feature:genres",
     ":feature:home",

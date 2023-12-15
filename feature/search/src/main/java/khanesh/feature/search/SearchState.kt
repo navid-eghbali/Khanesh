@@ -1,6 +1,9 @@
 package khanesh.feature.search
 
-data class SearchState(
+import androidx.compose.runtime.Immutable
+
+@Immutable
+internal data class SearchState(
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
     val query: String = "",

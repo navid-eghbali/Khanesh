@@ -1,10 +1,16 @@
 package khanesh.feature.genres
 
-sealed interface GenresState {
+import androidx.compose.runtime.Immutable
+import kotlinx.collections.immutable.ImmutableList
 
+@Immutable
+internal sealed interface GenresState {
+
+    @Immutable
     data object Loading : GenresState
 
+    @Immutable
     data class Success(
-        val genres: List<String>,
+        val genres: ImmutableList<String>,
     ) : GenresState
 }

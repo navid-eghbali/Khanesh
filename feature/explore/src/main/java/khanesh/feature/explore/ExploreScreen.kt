@@ -33,9 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import khanesh.core.ui.designsystem.AppColorPalette
 import khanesh.core.ui.resources.R
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
-fun ExploreScreen(
+internal fun ExploreScreen(
     onSearchClicked: () -> Unit,
     onGenreClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -77,7 +78,7 @@ private fun ExploreUi(
 }
 
 @Composable
-fun SearchItem(
+private fun SearchItem(
     onSearchClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -110,7 +111,7 @@ fun SearchItem(
 }
 
 @Composable
-fun GenreItem(
+private fun GenreItem(
     genre: String,
     color: Color,
     onGenreClicked: (String) -> Unit,
@@ -139,13 +140,13 @@ fun GenreItem(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewSearchItem() {
+private fun PreviewSearchItem() {
     SearchItem(onSearchClicked = {})
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewGenreItem() {
+private fun PreviewGenreItem() {
     GenreItem(
         genre = "مجموعه داستان",
         color = Color.Blue,
@@ -155,10 +156,10 @@ fun PreviewGenreItem() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewExploreScreen() {
+private fun PreviewExploreScreen() {
     ExploreUi(
         state = ExploreState(
-            genres = listOf(
+            genres = persistentListOf(
                 "رمان",
                 "مجموعه داستان",
                 "موفقیت",

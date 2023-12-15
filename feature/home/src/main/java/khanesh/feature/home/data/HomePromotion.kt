@@ -6,12 +6,12 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 
 @Immutable
-data class HomePromotion(
+internal data class HomePromotion(
     val title: String,
     val items: ImmutableList<HomeBookShort>,
 )
 
-fun List<Promotion>.toHomePromotions(): ImmutableList<HomePromotion> = map {
+internal fun List<Promotion>.toHomePromotions(): ImmutableList<HomePromotion> = map {
     HomePromotion(
         title = it.title,
         items = it.items.toHomeBookShorts(),

@@ -1,7 +1,12 @@
 package khanesh.feature.explore
 
-data class ExploreState(
+import androidx.compose.runtime.Immutable
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
+@Immutable
+internal data class ExploreState(
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
-    val genres: List<String> = emptyList(),
+    val genres: ImmutableList<String> = persistentListOf(),
 )

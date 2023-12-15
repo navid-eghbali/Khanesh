@@ -1,9 +1,14 @@
 package khanesh.feature.book.details
 
-sealed interface BookDetailsUiState {
+import androidx.compose.runtime.Immutable
 
+@Immutable
+internal sealed interface BookDetailsUiState {
+
+    @Immutable
     data object Loading : BookDetailsUiState
 
+    @Immutable
     data class Success(
         val bookId: Long
     ) : BookDetailsUiState

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SearchViewModel @Inject constructor() : ViewModel() {
+internal class SearchViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableStateFlow(SearchState())
     val state = _state.asStateFlow()

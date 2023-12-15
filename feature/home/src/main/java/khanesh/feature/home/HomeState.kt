@@ -5,7 +5,7 @@ import khanesh.feature.home.data.HomePromotion
 import kotlinx.collections.immutable.ImmutableList
 
 @Immutable
-sealed interface HomeState {
+internal sealed interface HomeState {
 
     @Immutable
     data object Loading : HomeState

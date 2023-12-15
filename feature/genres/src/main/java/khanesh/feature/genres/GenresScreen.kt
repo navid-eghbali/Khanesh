@@ -7,15 +7,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,22 +27,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import app.cash.paging.LoadStateLoading
-import app.cash.paging.PagingData
-import app.cash.paging.compose.collectAsLazyPagingItems
 import khanesh.core.ui.resources.R
-import khanesh.shared.core.model.Book
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
-fun GenresScreen(
+internal fun GenresScreen(
     navigateUp: () -> Unit,
     onGenreClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -50,7 +45,6 @@ fun GenresScreen(
     val state by viewModel.state.collectAsState()
     GenresUi(
         state = state,
-        books = viewModel.pager,
         navigateUp = navigateUp,
         onGenreClicked = onGenreClicked,
         modifier = modifier
@@ -61,13 +55,10 @@ fun GenresScreen(
 @Composable
 private fun GenresUi(
     state: GenresState,
-    books: Flow<PagingData<Book>>,
     navigateUp: () -> Unit,
     onGenreClicked: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val items = books.collectAsLazyPagingItems()
-
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -84,45 +75,7 @@ private fun GenresUi(
         },
         modifier = modifier,
     ) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-        ) {
-            if (items.loadState.refresh == LoadStateLoading) {
-                item {
-                    CircularProgressIndicator(
-                        strokeWidth = 2.dp,
-                        strokeCap = StrokeCap.Round,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.CenterHorizontally)
-                    )
-                }
-            }
-
-            items(count = items.itemCount) { index ->
-                ListItem(
-                    title = items[index]?.title ?: "...",
-                    onItemClicked = onGenreClicked
-                )
-            }
-
-            if (items.loadState.append == LoadStateLoading) {
-                item {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        CircularProgressIndicator(
-                            strokeCap = StrokeCap.Round,
-                            strokeWidth = 2.dp,
-                            modifier = Modifier
-                                .size(16.dp)
-                                .align(Alignment.Center)
-                        )
-                    }
-                }
-            }
-        }
-        /*when (state) {
+        when (state) {
             is GenresState.Loading -> {
                 Box(modifier = Modifier.fillMaxSize()) {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
@@ -141,17 +94,17 @@ private fun GenresUi(
                             onItemClicked = onGenreClicked
                         )
                         if (index < state.genres.lastIndex) {
-                            Divider(color = DividerDefaults.color.copy(alpha = 0.3f))
+                            HorizontalDivider(color = DividerDefaults.color.copy(alpha = 0.3f))
                         }
                     }
                 }
             }
-        }*/
+        }
     }
 }
 
 @Composable
-fun ListItem(
+private fun ListItem(
     title: String,
     onItemClicked: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -180,7 +133,7 @@ fun ListItem(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewListItem() {
+private fun PreviewListItem() {
     ListItem(
         title = "مجموعه داستان",
         onItemClicked = {}
@@ -189,12 +142,11 @@ fun PreviewListItem() {
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewGenresUi() {
+private fun PreviewGenresUi() {
     GenresUi(
         state = GenresState.Success(
-            genres = emptyList()
+            genres = persistentListOf()
         ),
-        books = emptyFlow(),
         navigateUp = {},
         onGenreClicked = {},
     )

@@ -20,8 +20,6 @@ kotlin {
                 implementation(projects.shared.base)
                 implementation(projects.shared.network)
                 implementation(projects.shared.storage)
-
-                implementation(libs.paging.common)
             }
         }
         val commonTest by getting {
